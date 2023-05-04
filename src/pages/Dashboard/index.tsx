@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { signOut } from '../../services/user';
 import useAuth from '../../hooks/useAuth';
 
+// This logic need to be a PrivateRoute component
 export default function Dashboard() {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
@@ -9,9 +11,17 @@ export default function Dashboard() {
   useEffect(() => {
     if (!currentUser) {
       navigate('/');
-      console.log('você precisa estar conectado');
     }
-  }, []);
+  }, [currentUser]);
 
-  return <h1>dashboard</h1>;
+  const handleLogout = async () => {
+    await signOut();
+  };
+
+  return (
+    <>
+      <h1>dashboard</h1>
+      <button onClick={handleLogout}>Logout</button>
+    </>
+  );
 }

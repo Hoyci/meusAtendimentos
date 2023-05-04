@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Box from '../../components/Box';
 import Form from '../../components/Form';
@@ -10,7 +10,7 @@ import useAuth from '../../hooks/useAuth';
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { setCurrentUser, signIn } = useAuth();
+  const { currentUser, signIn } = useAuth();
   const navigate = useNavigate();
   const { errors, getErrorByFieldName, setError, removeError } = useErrors();
 
@@ -47,14 +47,18 @@ export default function LoginPage() {
     event.preventDefault();
 
     try {
-      const userInfos = await signIn(email, password);
-      setCurrentUser(userInfos.user);
-      // Add the user authToken on localStorage and check if token is valid
+      await signIn(email, password);
       navigate('/dashboard');
     } catch (err) {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    if (currentUser) {
+      navigate('/dashboard');
+    }
+  }, []);
 
   return (
     <Box>

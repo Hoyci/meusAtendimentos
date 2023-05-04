@@ -1,6 +1,6 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import { User, UserCredential } from 'firebase/auth';
-import { signIn, signUp, signOut } from '../services/user';
+import { signIn, signUp, signOut, auth } from '../services/user';
 
 interface AuthContextValue {
   currentUser: User | null;
@@ -30,6 +30,18 @@ export const AuthContext = createContext<AuthContextValue>({
 
 export const AuthProvider = ({ children }: IAuthProvider) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      setCurrentUser(user);
+      setIsLoading(false);
+    });
+  }, []);
+
+  if (isLoading) {
+    return <h1>Carregando...</h1>;
+  }
 
   const value: AuthContextValue = {
     currentUser,
