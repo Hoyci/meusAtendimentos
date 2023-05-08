@@ -3,21 +3,18 @@ import { DefaultTheme } from 'styled-components';
 declare module 'styled-components' {
   interface DefaultTheme {
     colors: {
-      text: string;
       background: string;
-      gray: {
-        100: string;
-        300: string;
-        500: string;
-      };
-      purple: {
-        main: string;
-        darker: string;
+      asideBackground: string;
+      blue: {
+        dark: string;
+        light: string;
       };
       red: {
-        light: string;
         main: string;
+      }
+      text: {
         dark: string;
+        light: string;
       };
       white: string;
     };
@@ -26,23 +23,20 @@ declare module 'styled-components' {
 
 const defaultTheme: DefaultTheme = {
   colors: {
-    text: '#131313',
-    background: '#F4F4F4',
-    gray: {
-      100: '#F3F4F6',
-      300: '#D1D5DB',
-      500: '#6B7280',
+    background: '#FFFFFF',
+    asideBackground: '#FAFAFA',
+    blue: {
+      light: '#E4F1FF',
+      dark: '#017AFF',
     },
     red: {
-      light: '#F97171',
-      main: '#FC5050',
-      dark: '#F63131',
+      main: '#FC5050'
+    },
+    text: {
+      dark: '#222325',
+      light: '#9B9B9B',
     },
     white: '#FFF',
-    purple: {
-      main: '#6246EA',
-      darker: '#5a42d1',
-    },
   },
 };
 

@@ -5,12 +5,13 @@ import Form from '../../components/Form';
 import FormGroup from '../../components/FormGroup';
 import FormInput from '../../components/FormInput';
 import useErrors from '../../hooks/useErrors';
-import { signUp } from '../../services/user';
+import { signUp } from '../../services/auth';
 
 export default function RegisterPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { errors, getErrorByFieldName, setError, removeError } = useErrors();
 
@@ -73,11 +74,13 @@ export default function RegisterPage() {
     event.preventDefault();
 
     try {
+      setIsLoading(true);
       const userInfos = await signUp(email, password);
-      console.log(userInfos);
-      navigate('/');
+      navigate('/dashboard');
     } catch (err) {
       console.log(err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -116,7 +119,7 @@ export default function RegisterPage() {
             onChange={handleConfirmPasswordChange}
           />
         </FormGroup>
-        <button type="submit" disabled={!isFormValid}>
+        <button type="submit" disabled={!isFormValid || isLoading}>
           Cadastrar
         </button>
       </Form>

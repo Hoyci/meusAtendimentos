@@ -2,6 +2,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyles from './assets/styles/global';
 import defaultTheme from './assets/styles/themes/default';
+import Menu from './components/Menu';
+import PrivateRoute from './components/PrivateRoute';
 import { AuthProvider } from './context/AuthContext';
 import Dashboard from './pages/Dashboard';
 import LoginPage from './pages/LoginPage';
@@ -18,7 +20,17 @@ const router = createBrowserRouter([
   },
   {
     path: '/dashboard',
-    element: <Dashboard />,
+    element: (
+      <PrivateRoute>
+        <Dashboard />
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        path: '/dashboard',
+        element: <Menu />,
+      },
+    ],
   },
 ]);
 

@@ -2,10 +2,6 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const LinkStyled = styled(Link)`
-  color: ${({ theme }) => theme.colors.text};
+  color: ${({ theme }) => theme.colors.text.dark};
   text-decoration: none;
-
-  &:hover {
-    color: ${({ theme }) => theme.colors.gray[500]};
-  }
 `;

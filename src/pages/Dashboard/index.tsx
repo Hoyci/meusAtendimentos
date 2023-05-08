@@ -1,27 +1,18 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { signOut } from '../../services/user';
-import useAuth from '../../hooks/useAuth';
+import { Outlet } from 'react-router-dom';
+import Aside from '../../components/Aside';
+import { Container } from './styles';
+import { signOut } from '../../services/auth';
 
-// This logic need to be a PrivateRoute component
 export default function Dashboard() {
-  const { currentUser } = useAuth();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!currentUser) {
-      navigate('/');
-    }
-  }, [currentUser]);
-
   const handleLogout = async () => {
     await signOut();
   };
 
   return (
-    <>
-      <h1>dashboard</h1>
+    <Container>
+      <Aside />
+      <Outlet />
       <button onClick={handleLogout}>Logout</button>
-    </>
+    </Container>
   );
 }

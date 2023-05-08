@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { User, UserCredential } from 'firebase/auth';
-import { signIn, signUp, signOut, auth } from '../services/user';
+import { signIn, signUp, signOut } from '../services/auth';
+import { auth } from '../services';
 
 interface AuthContextValue {
   currentUser: User | null;
@@ -43,7 +44,7 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
     return <h1>Carregando...</h1>;
   }
 
-  const value: AuthContextValue = {
+  const value = {
     currentUser,
     setCurrentUser,
     signIn,
