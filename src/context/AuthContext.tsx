@@ -2,11 +2,20 @@ import React, { createContext, useEffect, useState } from 'react';
 import { User, UserCredential } from 'firebase/auth';
 import { signIn, signUp, signOut } from '../services/auth';
 import { auth } from '../services';
+import { getUser, UserInfoType } from '../services/database';
 
 interface AuthContextValue {
+  userProfileInfos: UserInfoType | null;
+  setUserProfileInfos: React.Dispatch<
+    React.SetStateAction<UserInfoType | null>
+  >;
   currentUser: User | null;
   setCurrentUser: React.Dispatch<React.SetStateAction<User | null>>;
-  signUp: (email: string, password: string) => Promise<UserCredential>;
+  signUp: (
+    name: string,
+    email: string,
+    password: string
+  ) => Promise<UserCredential>;
   signIn: (email: string, password: string) => Promise<UserCredential>;
   signOut: () => Promise<void>;
 }
@@ -16,6 +25,8 @@ interface IAuthProvider {
 }
 
 export const AuthContext = createContext<AuthContextValue>({
+  userProfileInfos: null,
+  setUserProfileInfos: () => {},
   currentUser: null,
   setCurrentUser: () => {},
   signUp: async () => {
@@ -31,6 +42,9 @@ export const AuthContext = createContext<AuthContextValue>({
 
 export const AuthProvider = ({ children }: IAuthProvider) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [userProfileInfos, setUserProfileInfos] = useState<UserInfoType | null>(
+    null
+  );
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -40,11 +54,26 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
     });
   }, []);
 
+  useEffect(() => {
+    const getUserInfos = async (uid: string) => {
+      const userInfos = await getUser(uid);
+      userInfos && setUserProfileInfos(userInfos);
+    };
+
+    if (currentUser) {
+      getUserInfos(currentUser.uid);
+    } else {
+      setUserProfileInfos(null);
+    }
+  }, [currentUser]);
+
   if (isLoading) {
     return <h1>Carregando...</h1>;
   }
 
   const value = {
+    userProfileInfos,
+    setUserProfileInfos,
     currentUser,
     setCurrentUser,
     signIn,

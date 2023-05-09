@@ -8,6 +8,7 @@ import useErrors from '../../hooks/useErrors';
 import { signUp } from '../../services/auth';
 
 export default function RegisterPage() {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -19,6 +20,19 @@ export default function RegisterPage() {
     password.length !== 0 &&
     errors.length === 0 &&
     password === confirmPassword;
+
+  const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value);
+
+    if (!event.target.value) {
+      setError({
+        field: 'name-register',
+        message: 'Nome é obrigatório',
+      });
+    } else {
+      removeError('name-register');
+    }
+  };
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -75,8 +89,8 @@ export default function RegisterPage() {
 
     try {
       setIsLoading(true);
-      const userInfos = await signUp(email, password);
-      navigate('/dashboard');
+      await signUp(name, email, password);
+      navigate('/home');
     } catch (err) {
       console.log(err);
     } finally {
@@ -87,6 +101,15 @@ export default function RegisterPage() {
   return (
     <Box>
       <Form onSubmit={handleSubmit}>
+        <FormGroup error={getErrorByFieldName('name-register')}>
+          <FormInput
+            labelText="Nome"
+            name="name"
+            type="text"
+            value={name}
+            onChange={handleChangeName}
+          />
+        </FormGroup>
         <FormGroup error={getErrorByFieldName('email-register')}>
           <FormInput
             labelText="E-mail"

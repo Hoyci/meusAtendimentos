@@ -7,11 +7,13 @@ declare module 'styled-components' {
       asideBackground: string;
       blue: {
         dark: string;
+        darkGrey: string;
+        darkGreyHover: string;
         light: string;
       };
       red: {
         main: string;
-      }
+      };
       text: {
         dark: string;
         light: string;
@@ -23,14 +25,16 @@ declare module 'styled-components' {
 
 const defaultTheme: DefaultTheme = {
   colors: {
-    background: '#FFFFFF',
+    background: '#F7F8FD',
     asideBackground: '#FAFAFA',
     blue: {
-      light: '#E4F1FF',
       dark: '#017AFF',
+      darkGrey: '#3A4374',
+      darkGreyHover: '#656EA3',
+      light: '#E4F1FF',
     },
     red: {
-      main: '#FC5050'
+      main: '#FC5050',
     },
     text: {
       dark: '#222325',

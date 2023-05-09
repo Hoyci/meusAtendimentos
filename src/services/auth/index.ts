@@ -7,9 +7,9 @@ import 'firebase/database';
 import { createUser } from '../database';
 import { auth } from '..';
 
-export async function signUp(email: string, password: string) {
+export async function signUp(name: string, email: string, password: string) {
   const user = await createUserWithEmailAndPassword(auth, email, password);
-  await createUser({ id: user.user.uid, email });
+  await createUser({ id: user.user.uid, name, email });
 
   return user;
 }

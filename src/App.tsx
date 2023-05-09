@@ -5,7 +5,7 @@ import defaultTheme from './assets/styles/themes/default';
 import Menu from './components/Menu';
 import PrivateRoute from './components/PrivateRoute';
 import { AuthProvider } from './context/AuthContext';
-import Dashboard from './pages/Dashboard';
+import Home from './pages/Home';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 
@@ -19,15 +19,15 @@ const router = createBrowserRouter([
     element: <RegisterPage />,
   },
   {
-    path: '/dashboard',
+    path: '/home',
     element: (
       <PrivateRoute>
-        <Dashboard />
+        <Home />
       </PrivateRoute>
     ),
     children: [
       {
-        path: '/dashboard',
+        path: '/home',
         element: <Menu />,
       },
     ],

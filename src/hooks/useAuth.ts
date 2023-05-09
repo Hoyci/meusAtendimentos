@@ -1,9 +1,25 @@
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 
+//TODO: separar o que é autenticação do que é de usuário e criar um hook useUser
 export default function useAuth() {
-  const { currentUser, setCurrentUser, signIn, signUp, signOut } =
-    useContext(AuthContext);
+  const {
+    userProfileInfos,
+    setUserProfileInfos,
+    currentUser,
+    setCurrentUser,
+    signIn,
+    signUp,
+    signOut,
+  } = useContext(AuthContext);
 
-  return { currentUser, setCurrentUser, signIn, signUp, signOut };
+  return {
+    userProfileInfos,
+    setUserProfileInfos,
+    currentUser,
+    setCurrentUser,
+    signIn,
+    signUp,
+    signOut,
+  };
 }

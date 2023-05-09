@@ -15,7 +15,7 @@ export default function Menu() {
           <HeaderTitle>Bem-vindo</HeaderTitle>
           <HeaderSubtitle>Sua lista de pacientes</HeaderSubtitle>
         </HeaderTitleContainer>
-        <Button label="Novo paciente" href="/dashboard/1" isLink />
+        <Button label="Novo paciente" href="/home/1" isLink />
       </Header>
     </Container>
   );

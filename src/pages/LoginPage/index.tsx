@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Box from '../../components/Box';
 import Form from '../../components/Form';
@@ -9,8 +9,9 @@ import useAuth from '../../hooks/useAuth';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const [password, setPassword] = useState('');
-  const { currentUser, signIn } = useAuth();
+  const { signIn } = useAuth();
   const navigate = useNavigate();
   const { errors, getErrorByFieldName, setError, removeError } = useErrors();
 
@@ -47,18 +48,16 @@ export default function LoginPage() {
     event.preventDefault();
 
     try {
+      setIsLoading(true);
       await signIn(email, password);
-      navigate('/dashboard');
+      navigate('/home');
     } catch (err) {
+      alert(err);
       console.log(err);
+    } finally {
+      setIsLoading(false);
     }
   };
-
-  useEffect(() => {
-    if (currentUser) {
-      navigate('/dashboard');
-    }
-  }, []);
 
   return (
     <Box>
@@ -81,7 +80,7 @@ export default function LoginPage() {
             onChange={handlePasswordChange}
           />
         </FormGroup>
-        <button type="submit" disabled={!isFormValid}>
+        <button type="submit" disabled={!isFormValid || isLoading}>
           Entrar
         </button>
       </Form>
