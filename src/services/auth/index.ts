@@ -4,13 +4,10 @@ import {
   signOut as signOutFirebase,
 } from 'firebase/auth';
 import 'firebase/database';
-import { createUser } from '../database';
 import { auth } from '..';
 
 export async function signUp(name: string, email: string, password: string) {
   const user = await createUserWithEmailAndPassword(auth, email, password);
-  await createUser({ id: user.user.uid, name, email });
-
   return user;
 }
 

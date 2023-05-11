@@ -13,17 +13,18 @@ const GlobalStyles = createGlobalStyle`
     
     body {
         font-size: 1.6rem;
-        font-family: 'Poppins', sans-serif;
-        color: ${({ theme }) => theme.colors.text.dark}
+        font-family: 'Roboto', sans-serif;
+        color: ${({ theme }) => theme.colors.text.dark};
+        background-color: ${({ theme }) => theme.colors.background};
     }
 
     body, input, textarea, button {
-        font-family: 'Poppins', sans-serif;
+        font-family: 'Roboto', sans-serif;
         font-weight: 400;
     }
 
     h1, h2, h2, h4, h5, h6, strong {
-        font-weight: 600;
+        font-weight: 700;
     }
 `;
 

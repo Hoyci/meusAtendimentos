@@ -6,6 +6,8 @@ import FormGroup from '../../components/FormGroup';
 import FormInput from '../../components/FormInput';
 import useErrors from '../../hooks/useErrors';
 import useAuth from '../../hooks/useAuth';
+import { logEvent } from 'firebase/analytics';
+import { analytics } from '../../../firebaseConfig';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -49,7 +51,13 @@ export default function LoginPage() {
 
     try {
       setIsLoading(true);
-      await signIn(email, password);
+      const { user } = await signIn(email, password);
+      logEvent(analytics, 'login', {
+        method: 'email',
+        userId: user.uid,
+        userEmail: email,
+        displayName: user.displayName,
+      });
       navigate('/home');
     } catch (err) {
       alert(err);

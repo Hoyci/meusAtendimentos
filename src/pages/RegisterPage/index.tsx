@@ -1,5 +1,8 @@
+import { logEvent } from 'firebase/analytics';
+import { updateProfile } from 'firebase/auth';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { analytics } from '../../../firebaseConfig';
 import Box from '../../components/Box';
 import Form from '../../components/Form';
 import FormGroup from '../../components/FormGroup';
@@ -89,7 +92,16 @@ export default function RegisterPage() {
 
     try {
       setIsLoading(true);
-      await signUp(name, email, password);
+      const { user } = await signUp(name, email, password);
+      await updateProfile(user, {
+        displayName: name,
+      });
+      logEvent(analytics, 'user_register', {
+        method: 'email',
+        userId: user.uid,
+        userEmail: user.email,
+        displayName: user.displayName,
+      });
       navigate('/home');
     } catch (err) {
       console.log(err);

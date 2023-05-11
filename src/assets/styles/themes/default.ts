@@ -10,6 +10,12 @@ declare module 'styled-components' {
         darkGrey: string;
         darkGreyHover: string;
         light: string;
+        test: string;
+        anotherVariation: string;
+        secondVariation: string;
+      };
+      gray: {
+        main: string;
       };
       red: {
         main: string;
@@ -32,6 +38,12 @@ const defaultTheme: DefaultTheme = {
       darkGrey: '#3A4374',
       darkGreyHover: '#656EA3',
       light: '#E4F1FF',
+      test: '#4661e6',
+      anotherVariation: '#647196',
+      secondVariation: '#f2f4ff',
+    },
+    gray: {
+      main: '#f2f4fe',
     },
     red: {
       main: '#FC5050',

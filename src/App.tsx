@@ -2,11 +2,12 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyles from './assets/styles/global';
 import defaultTheme from './assets/styles/themes/default';
-import Menu from './components/Menu';
 import PrivateRoute from './components/PrivateRoute';
 import { AuthProvider } from './context/AuthContext';
+import EditPatient from './pages/EditPatient';
 import Home from './pages/Home';
 import LoginPage from './pages/LoginPage';
+import NewPatient from './pages/NewPatient';
 import RegisterPage from './pages/RegisterPage';
 
 const router = createBrowserRouter([
@@ -25,12 +26,22 @@ const router = createBrowserRouter([
         <Home />
       </PrivateRoute>
     ),
-    children: [
-      {
-        path: '/home',
-        element: <Menu />,
-      },
-    ],
+  },
+  {
+    path: '/patient/create',
+    element: (
+      <PrivateRoute>
+        <NewPatient />
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: '/patient/edit/:id',
+    element: (
+      <PrivateRoute>
+        <EditPatient />
+      </PrivateRoute>
+    ),
   },
 ]);
 

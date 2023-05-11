@@ -54,18 +54,19 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
     });
   }, []);
 
-  useEffect(() => {
-    const getUserInfos = async (uid: string) => {
-      const userInfos = await getUser(uid);
-      userInfos && setUserProfileInfos(userInfos);
-    };
+  // useEffect(() => {
+  //   const getUserInfos = async (uid: string) => {
+  //     const userInfos = await getUser(uid);
+  //     userInfos && setUserProfileInfos(userInfos);
+  //     // setIsLoading(false);
+  //   };
 
-    if (currentUser) {
-      getUserInfos(currentUser.uid);
-    } else {
-      setUserProfileInfos(null);
-    }
-  }, [currentUser]);
+  //   if (currentUser) {
+  //     getUserInfos(currentUser.uid);
+  //   } else {
+  //     setUserProfileInfos(null);
+  //   }
+  // }, [currentUser]);
 
   if (isLoading) {
     return <h1>Carregando...</h1>;

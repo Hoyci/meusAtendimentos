@@ -4,7 +4,7 @@ export const Container = styled.header`
   background-color: ${({ theme }) => theme.colors.blue.darkGrey};
   width: 100%;
   max-width: 76.7rem;
-
+  margin-bottom: 2rem;
   box-shadow: 0px 0px 4px 0px ${({ theme }) => theme.colors.blue.darkGrey};
 
   @media (min-width: 767px) {

@@ -1,18 +1,36 @@
-import { Container } from './styles';
-// import { signOut } from '../../services/auth';
-import Menu from '../../components/Menu';
+import {
+  Container,
+  ContentContainer,
+  ContentHeader,
+  ContentLabel,
+  LabelContainer,
+  PatientList,
+} from './styles';
 import Header from '../../components/Header';
+import { StyledLink } from '../../components/StyledLink';
+import PatientCard from '../../components/PatientCard';
+import { mockPatients } from './mocks';
 
 export default function Home() {
-  // const handleLogout = async () => {
-  //   await signOut();
-  // };
-
   return (
     <Container>
       <Header />
-      {/* <Menu /> */}
-      {/* <button onClick={handleLogout}>Logout</button> */}
+
+      <ContentContainer>
+        <ContentHeader>
+          <LabelContainer>
+            <ContentLabel>{mockPatients.length} pacientes</ContentLabel>
+            <p>Nome ↑</p>
+          </LabelContainer>
+          <StyledLink to="/patient/create">Adicionar paciente</StyledLink>
+        </ContentHeader>
+
+        <PatientList>
+          {mockPatients.map((patient) => (
+            <PatientCard key={patient.id} patient={patient} />
+          ))}
+        </PatientList>
+      </ContentContainer>
     </Container>
   );
 }
