@@ -10,7 +10,7 @@ export const Container = styled.div`
 `;
 
 export const InputLabel = styled.label`
-  color: ${({ theme }) => theme.colors.text.dark};
+  color: ${({ theme }) => theme.colors.lynch[800]};
   margin-bottom: 0.1rem;
 `;
 

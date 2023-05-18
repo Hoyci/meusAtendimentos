@@ -14,7 +14,7 @@ const GlobalStyles = createGlobalStyle`
     body {
         font-size: 1.6rem;
         font-family: 'Roboto', sans-serif;
-        color: ${({ theme }) => theme.colors.text.dark};
+        color: ${({ theme }) => theme.colors.lynch[900]};
         background-color: ${({ theme }) => theme.colors.background};
     }
 

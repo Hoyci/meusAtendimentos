@@ -92,7 +92,7 @@ export default function RegisterPage() {
 
     try {
       setIsLoading(true);
-      const { user } = await signUp(name, email, password);
+      const { user } = await signUp(email, password);
       await updateProfile(user, {
         displayName: name,
       });

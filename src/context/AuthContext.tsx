@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useState } from 'react';
 import { User, UserCredential } from 'firebase/auth';
 import { signIn, signUp, signOut } from '../services/auth';
 import { auth } from '../services';
-import { getUser, UserInfoType } from '../services/database';
+import { UserInfoType } from '../services/database';
 
 interface AuthContextValue {
   userProfileInfos: UserInfoType | null;
@@ -12,7 +12,6 @@ interface AuthContextValue {
   currentUser: User | null;
   setCurrentUser: React.Dispatch<React.SetStateAction<User | null>>;
   signUp: (
-    name: string,
     email: string,
     password: string
   ) => Promise<UserCredential>;
@@ -53,20 +52,6 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
       setIsLoading(false);
     });
   }, []);
-
-  // useEffect(() => {
-  //   const getUserInfos = async (uid: string) => {
-  //     const userInfos = await getUser(uid);
-  //     userInfos && setUserProfileInfos(userInfos);
-  //     // setIsLoading(false);
-  //   };
-
-  //   if (currentUser) {
-  //     getUserInfos(currentUser.uid);
-  //   } else {
-  //     setUserProfileInfos(null);
-  //   }
-  // }, [currentUser]);
 
   if (isLoading) {
     return <h1>Carregando...</h1>;

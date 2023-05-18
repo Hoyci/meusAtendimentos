@@ -1,11 +1,11 @@
 import styled, { css } from 'styled-components';
 
 export const Container = styled.header`
-  background-color: ${({ theme }) => theme.colors.blue.darkGrey};
+  background-color: ${({ theme }) => theme.colors.blue[900]};
   width: 100%;
   max-width: 76.7rem;
   margin-bottom: 2rem;
-  box-shadow: 0px 0px 4px 0px ${({ theme }) => theme.colors.blue.darkGrey};
+  box-shadow: 0px 0px 4px 0px ${({ theme }) => theme.colors.blue[900]};
 
   @media (min-width: 767px) {
     border-radius: 0 0 5px 5px;
@@ -49,7 +49,7 @@ export const PerfilModal = styled.div<PerfilModalProps>`
   padding: 0.5rem 2rem;
   top: calc(100% + 1.8rem);
   z-index: 10;
-  background-color: ${({ theme }) => theme.colors.blue.darkGrey};
+  background-color: ${({ theme }) => theme.colors.blue[700]};
   border-radius: 5px;
   visibility: hidden;
   opacity: 0;
@@ -72,6 +72,6 @@ export const PerfilModal = styled.div<PerfilModalProps>`
     border-style: solid;
     border-width: 0 8px 8px;
     border-color: transparent transparent
-      ${({ theme }) => theme.colors.blue.darkGrey};
+      ${({ theme }) => theme.colors.blue[700]};
   }
 `;

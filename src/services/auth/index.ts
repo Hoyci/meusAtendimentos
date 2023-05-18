@@ -6,7 +6,7 @@ import {
 import 'firebase/database';
 import { auth } from '..';
 
-export async function signUp(name: string, email: string, password: string) {
+export async function signUp(email: string, password: string) {
   const user = await createUserWithEmailAndPassword(auth, email, password);
   return user;
 }

@@ -30,9 +30,11 @@ export default function PatientCard({ patient }: { patient: PatientProps }) {
     <Container>
       <PatientInfos>
         <PatientTitle>{name}</PatientTitle>
-        <PatitentSubtitle>{`${daysOfTheWeek[schedule.dayOfWeek]} - ${
-          patientSchedule[0]
-        } às ${patientSchedule[1]} `}</PatitentSubtitle>
+        <PatitentSubtitle>
+          {`${daysOfTheWeek[schedule.dayOfWeek]} - ${patientSchedule[0]} às ${
+            patientSchedule[1]
+          } `}
+        </PatitentSubtitle>
         <PatientCategory>Social</PatientCategory>
       </PatientInfos>
 
