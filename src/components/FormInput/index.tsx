@@ -6,6 +6,7 @@ interface FormInputType extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
   type: string;
   value: string;
+  className?: string;
 }
 
 export default function FormInput({
@@ -14,9 +15,10 @@ export default function FormInput({
   type,
   value,
   onChange,
+  className,
 }: FormInputType) {
   return (
-    <Container>
+    <Container className={className}>
       <InputLabel htmlFor={name}>{labelText}</InputLabel>
       <Input name={name} type={type} value={value} onChange={onChange} />
     </Container>

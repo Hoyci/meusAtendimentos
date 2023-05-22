@@ -1,10 +1,5 @@
-import {
-  ContentHeader,
-  ContentLabel,
-  LabelContainer,
-  PatientList,
-} from './styles';
-import { StyledLink } from '../../components/StyledLink';
+import { ContentHeader, ContentLabel, LabelContainer } from './styles';
+import { ButtonStyledLink } from '../../components/ButtonStyledLink';
 import PatientCard from '../../components/PatientCard';
 import { mockPatients } from './mocks';
 
@@ -16,14 +11,14 @@ export default function Home() {
           <ContentLabel>{mockPatients.length} pacientes</ContentLabel>
           <p>Nome ↑</p>
         </LabelContainer>
-        <StyledLink to="/patient/create">Adicionar paciente</StyledLink>
+        <ButtonStyledLink to="/patient/create">
+          Adicionar paciente
+        </ButtonStyledLink>
       </ContentHeader>
 
-      <PatientList>
-        {mockPatients.map((patient) => (
-          <PatientCard key={patient.id} patient={patient} />
-        ))}
-      </PatientList>
+      {mockPatients.map((patient) => (
+        <PatientCard key={patient.id} patient={patient} />
+      ))}
     </>
   );
 }

@@ -8,6 +8,28 @@ export const daysOfTheWeek = [
   'Domingo',
 ];
 
+export const educationLevels = [
+  { text: 'Analfabeto', value: 'unlettered' },
+  { text: 'Fundamental Incompleto', value: 'elementaryIncompleted' },
+  { text: 'Fundamental Completo', value: 'elementaryCompleted' },
+  { text: 'Médio Incompleto', value: 'highSchoolIncompleted' },
+  { text: 'Médio Completo', value: 'highSchoolCompleted' },
+  { text: 'Superior Incompleto', value: 'ungraduated' },
+  { text: 'Superior Completo', value: 'graduated' },
+];
+
+export const gendersList = [
+  { text: 'Masculino', value: 'man' },
+  { text: 'Feminino', value: 'woman' },
+  { text: 'Outros', value: 'others' },
+];
+
+export const maritalStatusList = [
+  { text: 'Solteiro', value: 'single' },
+  { text: 'Casado', value: 'married' },
+  { text: 'Divorciado', value: 'divorced' },
+];
+
 export const getHours = (start: number, end: number) => {
   const startHours = new Date(start).getHours();
   const startMinutes = new Date(start).getMinutes();

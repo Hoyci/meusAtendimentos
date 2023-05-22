@@ -10,7 +10,7 @@ export type PatientProps = {
     number: number;
     cep: string;
     city: string;
-    uf: string;
+    country: string;
   };
   email: string;
   birthdayDate: number;

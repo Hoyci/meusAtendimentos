@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-export const StyledLink = styled(Link)`
+export const ButtonStyledLink = styled(Link)`
   text-decoration: none;
   background-color: ${({ theme }) => theme.colors.blue[600]};
   color: ${({ theme }) => theme.colors.white};
