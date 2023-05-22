@@ -11,7 +11,7 @@ export const InputLabel = styled.label`
   margin-bottom: 0.4rem;
 `;
 
-export const Input = styled.input`
+export const Select = styled.select`
   background-color: ${({ theme }) => theme.colors.background};
   padding: 1rem;
   border: 2px solid transparent;

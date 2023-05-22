@@ -21,5 +21,3 @@ export const LabelContainer = styled.div`
   align-items: center;
   gap: 1rem;
 `;
-
-export const PatientList = styled.div``;

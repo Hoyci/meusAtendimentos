@@ -18,7 +18,7 @@ const GlobalStyles = createGlobalStyle`
         background-color: ${({ theme }) => theme.colors.background};
     }
 
-    body, input, textarea, button {
+    body, input, textarea, button, select {
         font-family: 'Roboto', sans-serif;
         font-weight: 400;
     }
