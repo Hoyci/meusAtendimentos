@@ -1,4 +1,5 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, Outlet } from 'react-router-dom';
+import Header from './components/Header';
 import PrivateRoute from './components/PrivateRoute';
 import {
   LoginPage,
@@ -19,26 +20,26 @@ export default createBrowserRouter([
   },
   {
     path: '/home',
-    element: (
-      <PrivateRoute>
-        <Home />
-      </PrivateRoute>
-    ),
+    element: <PrivateRoute />,
+    children: [
+      {
+        path: '/home',
+        element: <Home />
+      }
+    ]
   },
   {
-    path: '/patient/create',
-    element: (
-      <PrivateRoute>
-        <NewPatient />
-      </PrivateRoute>
-    ),
-  },
-  {
-    path: '/patient/edit/:id',
-    element: (
-      <PrivateRoute>
-        <EditPatient />
-      </PrivateRoute>
-    ),
+    path: '/patient',
+    element: <PrivateRoute />,
+    children: [
+      {
+        path: 'create',
+        element: <NewPatient />,
+      },
+      {
+        path: 'edit/:id',
+        element: <EditPatient />
+      }
+    ]
   },
 ]);
