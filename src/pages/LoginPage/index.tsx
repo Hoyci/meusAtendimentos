@@ -26,11 +26,11 @@ export default function LoginPage() {
 
     if (!event.target.value) {
       setError({
-        field: 'email-login',
+        field: 'email',
         message: 'E-mail é obrigatório',
       });
     } else {
-      removeError('email-login');
+      removeError('email');
     }
   };
 
@@ -39,11 +39,11 @@ export default function LoginPage() {
 
     if (!event.target.value) {
       setError({
-        field: 'password-login',
+        field: 'password',
         message: 'Senha é obrigatório',
       });
     } else {
-      removeError('password-login');
+      removeError('password');
     }
   };
 
@@ -71,7 +71,7 @@ export default function LoginPage() {
   return (
     <Box>
       <Form onSubmit={handleSubmit}>
-        <FormGroup error={getErrorByFieldName('username-login')}>
+        <FormGroup error={getErrorByFieldName('username')}>
           <FormInput
             labelText="E-mail"
             name="email"
@@ -80,7 +80,7 @@ export default function LoginPage() {
             onChange={handleEmailChange}
           />
         </FormGroup>
-        <FormGroup error={getErrorByFieldName('password-login')}>
+        <FormGroup error={getErrorByFieldName('password')}>
           <FormInput
             labelText="Senha"
             name="password"
