@@ -1,4 +1,9 @@
+import { IconContext } from 'react-icons';
 import styled, { css } from 'styled-components';
+
+interface PerfilModalProps {
+  isOpen: boolean;
+}
 
 export const Container = styled.header`
   background-color: ${({ theme }) => theme.colors.blue[900]};
@@ -19,6 +24,7 @@ export const Content = styled.div`
   padding: 0.8rem 2.4rem;
 
   p {
+    font-size: 1.4rem;
     color: ${({ theme }) => theme.colors.white};
   }
 `;
@@ -38,10 +44,6 @@ export const Image = styled.img`
     filter: brightness(0.9);
   }
 `;
-
-interface PerfilModalProps {
-  isOpen: boolean;
-}
 
 export const PerfilModal = styled.div<PerfilModalProps>`
   position: absolute;

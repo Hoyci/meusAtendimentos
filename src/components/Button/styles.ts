@@ -1,17 +1,32 @@
-// import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { ButtonProps } from './types';
 
-// export const ButtonStyled = styled.button``;
+export const ButtonStyled = styled.button<ButtonProps>`
+  background-color: ${({ theme }) => theme.colors.blue[800]};
+  color: ${({ theme }) => theme.colors.white};
+  border: none;
+  padding: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  max-width: ${({ maxWidth }) => maxWidth};
 
-// export const ButtonLink = styled.a`
-//   font-size: 1.4rem;
-//   text-decoration: none;
-//   background-color: ${({ theme }) => theme.colors.blue2[100]};
-//   border-radius: 8px;
-//   padding: 1rem 2rem;
-//   color: red;
-//   cursor: pointer;
+  &:focus {
+    outline-color: ${({ theme }) => theme.colors.blue[500]};
+  }
 
-//   &:hover {
-//     opacity: 0.85;
-//   }
-// `;
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.blue[700]};
+  }
+
+  ${({ outlined }) =>
+    outlined &&
+    css`
+      background-color: transparent;
+      border: 2px solid ${({ theme }) => theme.colors.blue[400]};
+
+      &:hover {
+        background-color: ${({ theme }) => theme.colors.blue[400]};
+      }
+    `}
+`;

@@ -17,7 +17,7 @@ export const Header = styled.header`
 
 export const HeaderTitle = styled.h1`
   font-weight: 500;
-  font-size: 2.2rem;
+  font-size: 1.8rem;
   color: ${({ theme }) => theme.colors.blue[800]};
 `;
 
@@ -42,21 +42,4 @@ export const InlineInputs = styled.div`
 export const ButtonContainer = styled.div`
   display: flex;
   justify-content: end;
-`;
-
-export const Button = styled.button`
-  background-color: ${({ theme }) => theme.colors.blue[800]};
-  color: ${({ theme }) => theme.colors.white};
-  border: none;
-  padding: 1rem;
-  border-radius: 5px;
-  cursor: pointer;
-
-  &:focus {
-    outline-color: ${({ theme }) => theme.colors.blue[500]};
-  }
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.blue[700]};
-  }
 `;

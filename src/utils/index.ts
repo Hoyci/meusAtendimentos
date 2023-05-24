@@ -49,3 +49,5 @@ export const getHours = (start: number, end: number) => {
     `${fixedEndHours}:${fixedEndMinutes}`,
   ];
 };
+
+export const removeCharacteres = (value: string) => value.replace(/\D/g, '');
