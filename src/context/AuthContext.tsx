@@ -25,8 +25,8 @@ interface IAuthProvider {
 
 export const AuthContext = createContext<AuthContextValue>({
   userProfileInfos: null,
-  setUserProfileInfos: () => {},
   currentUser: null,
+  setUserProfileInfos: () => {},
   setCurrentUser: () => {},
   signUp: async () => {
     throw new Error('AuthContext not initialized');

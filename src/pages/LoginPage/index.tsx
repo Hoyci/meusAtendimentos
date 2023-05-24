@@ -8,6 +8,7 @@ import useErrors from '../../hooks/useErrors';
 import useAuth from '../../hooks/useAuth';
 import { logEvent } from 'firebase/analytics';
 import { analytics } from '../../../firebaseConfig';
+import Button from '../../components/Button';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -88,9 +89,13 @@ export default function LoginPage() {
             onChange={handlePasswordChange}
           />
         </FormGroup>
-        <button type="submit" disabled={!isFormValid || isLoading}>
+        <Button
+          maxWidth="12rem"
+          disabled={!isFormValid || isLoading}
+          type="submit"
+        >
           Entrar
-        </button>
+        </Button>
       </Form>
     </Box>
   );

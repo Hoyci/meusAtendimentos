@@ -1,17 +1,15 @@
-// import { ButtonLink, ButtonStyled } from './styles';
+import { ButtonStyled } from './styles';
+import { ButtonProps } from './types';
 
-// type ButtonType = {
-//   isLink: boolean;
-//   label: string;
-//   href?: string;
-//   // children: React.ReactNode
-// };
-
-// export default function Button({ label, isLink, href }: ButtonType) {
-//   if (isLink) {
-//     return <ButtonLink href={href}>{label}</ButtonLink>;
-//   }
-
-//   return <ButtonStyled>{label}</ButtonStyled>;
-//   // return ()
-// }
+export default function Button({
+  outlined = false,
+  maxWidth = '6rem',
+  children,
+  ...props
+}: ButtonProps) {
+  return (
+    <ButtonStyled outlined={outlined} maxWidth={maxWidth} {...props}>
+      {children}
+    </ButtonStyled>
+  );
+}

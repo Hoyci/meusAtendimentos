@@ -5,9 +5,9 @@ import {
   query,
   where,
   getDocs,
-  getDoc,
 } from 'firebase/firestore';
 import { app } from '../../../firebaseConfig';
+import { PatientInfosType } from '../../types';
 
 const db = getFirestore(app);
 
@@ -33,6 +33,16 @@ export async function getUser(uid: string) {
     const document = await getDocs(user);
 
     return document.docs[0].data() as UserInfoType;
+  } catch (err) {
+    console.log('error', err);
+  }
+}
+
+export async function createPatient(patientInfos: PatientInfosType) {
+  try {
+    const patientsRef = collection(db, 'patients');
+    const docRef = await addDoc(patientsRef, patientInfos);
+    return docRef;
   } catch (err) {
     console.log('error', err);
   }

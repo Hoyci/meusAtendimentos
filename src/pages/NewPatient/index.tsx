@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import FormInput from '../../components/FormInput';
 import FormSelect from '../../components/FormSelect';
-import { educationLevels, gendersList, maritalStatusList } from '../../utils';
 import {
-  Button,
+  educationLevels,
+  gendersList,
+  maritalStatusList,
+  removeCharacteres,
+} from '../../utils';
+import {
   ButtonContainer,
   Container,
   Header,
@@ -13,7 +17,12 @@ import {
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { LinkStyled } from '../../components/Link';
 import { useTheme } from 'styled-components';
+import Button from '../../components/Button';
+import useAuth from '../../hooks/useAuth';
+import { PatientInfosType } from '../../types';
+import { createPatient } from '../../services/database';
 
+// TODO conseguir adicionar um paciente no
 export default function NewPatient() {
   const [name, setName] = useState('');
   const [occupation, setOccupation] = useState('');
@@ -21,7 +30,7 @@ export default function NewPatient() {
   const [birthday, setBirthday] = useState('');
   const [gender, setGender] = useState('man');
   const [maritalStatus, setMaritalStatus] = useState('single');
-  const [educationLevel, setEducationLevel] = useState('unlettered');
+  const [scholarity, setScholarity] = useState('unlettered');
   const [address, setAddress] = useState({
     street: '',
     number: '',
@@ -29,9 +38,10 @@ export default function NewPatient() {
     city: '',
     country: '',
   });
-
+  const { currentUser } = useAuth();
   const theme = useTheme();
 
+  // TODO criar um hook para lidar com handleChanges
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
   };
@@ -56,10 +66,8 @@ export default function NewPatient() {
     setMaritalStatus(event.target.value);
   };
 
-  const handleEducationLevel = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    setEducationLevel(event.target.value);
+  const handleScholarity = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setScholarity(event.target.value);
   };
 
   const handleBirthdayChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -103,16 +111,23 @@ export default function NewPatient() {
     }
   };
 
-  console.log({
-    name,
-    occupation,
-    phoneNumber,
-    birthday,
-    gender,
-    maritalStatus,
-    educationLevel,
-    address,
-  });
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const patientInfos: PatientInfosType = {
+      userId: currentUser?.uid,
+      name,
+      occupation,
+      phoneNumber: removeCharacteres(phoneNumber),
+      gender,
+      address,
+      birthdayDate: new Date(birthday).getTime(),
+      scholarity,
+    };
+
+    await createPatient(patientInfos);
+    console.log(patientInfos);
+  };
 
   return (
     <Container>
@@ -126,111 +141,113 @@ export default function NewPatient() {
         </LinkStyled>
         <HeaderTitle>Adicionar paciente</HeaderTitle>
       </Header>
-      <FormInput
-        labelText="Nome"
-        name="pacientName"
-        type="text"
-        value={name}
-        onChange={handleNameChange}
-      />
-      <InlineInputs>
+      <form onSubmit={handleSubmit}>
         <FormInput
-          labelText="Profissão"
-          name="occupation"
+          labelText="Nome"
+          name="pacientName"
           type="text"
-          value={occupation}
-          onChange={handleOccupationChange}
+          value={name}
+          onChange={handleNameChange}
         />
+        <InlineInputs>
+          <FormInput
+            labelText="Profissão"
+            name="occupation"
+            type="text"
+            value={occupation}
+            onChange={handleOccupationChange}
+          />
 
-        <FormInput
-          labelText="Número de telefone"
-          name="phoneNumber"
-          type="text"
-          value={phoneNumber}
-          onChange={handlePhoneNumberChange}
-        />
-      </InlineInputs>
+          <FormInput
+            labelText="Número de telefone"
+            name="phoneNumber"
+            type="text"
+            value={phoneNumber}
+            onChange={handlePhoneNumberChange}
+          />
+        </InlineInputs>
 
-      <InlineInputs>
-        <FormInput
-          labelText="Data de nascimento"
-          name="birthday"
-          type="date"
-          value={birthday}
-          onChange={handleBirthdayChange}
-        />
-        <FormSelect
-          labelText="Sexo"
-          name="gender"
-          value={gender}
-          options={gendersList}
-          onChange={handleGenderChange}
-        />
-      </InlineInputs>
+        <InlineInputs>
+          <FormInput
+            labelText="Data de nascimento"
+            name="birthday"
+            type="date"
+            value={birthday}
+            onChange={handleBirthdayChange}
+          />
+          <FormSelect
+            labelText="Sexo"
+            name="gender"
+            value={gender}
+            options={gendersList}
+            onChange={handleGenderChange}
+          />
+        </InlineInputs>
 
-      <InlineInputs>
-        <FormSelect
-          labelText="Estado civil"
-          name="maritalStatus"
-          value={maritalStatus}
-          options={maritalStatusList}
-          onChange={handleMaritalStatus}
-        />
-        <FormSelect
-          labelText="Nível de escolaridade"
-          name="educationLevel"
-          value={educationLevel}
-          options={educationLevels}
-          onChange={handleEducationLevel}
-        />
-      </InlineInputs>
+        <InlineInputs>
+          <FormSelect
+            labelText="Estado civil"
+            name="maritalStatus"
+            value={maritalStatus}
+            options={maritalStatusList}
+            onChange={handleMaritalStatus}
+          />
+          <FormSelect
+            labelText="Nível de escolaridade"
+            name="scholarity"
+            value={scholarity}
+            options={educationLevels}
+            onChange={handleScholarity}
+          />
+        </InlineInputs>
 
-      <InlineInputs>
-        <FormInput
-          labelText="Rua"
-          name="street"
-          type="text"
-          value={address.street}
-          onChange={handleAddressChange}
-          className="allLine"
-        />
-        <FormInput
-          labelText="Número"
-          name="number"
-          type="text"
-          value={address.number}
-          onChange={handleAddressChange}
-          className="first"
-        />
-        <FormInput
-          labelText="CEP"
-          name="cep"
-          type="text"
-          value={address.cep}
-          onChange={handleAddressChange}
-          className="second"
-        />
-        <FormInput
-          labelText="Cidade"
-          name="city"
-          type="text"
-          value={address.city}
-          onChange={handleAddressChange}
-          className="first"
-        />
-        <FormInput
-          labelText="País"
-          name="country"
-          type="text"
-          value={address.country}
-          onChange={handleAddressChange}
-          className="second"
-        />
-      </InlineInputs>
+        <InlineInputs>
+          <FormInput
+            labelText="Rua"
+            name="street"
+            type="text"
+            value={address.street}
+            onChange={handleAddressChange}
+            className="allLine"
+          />
+          <FormInput
+            labelText="Número"
+            name="number"
+            type="text"
+            value={address.number}
+            onChange={handleAddressChange}
+            className="first"
+          />
+          <FormInput
+            labelText="CEP"
+            name="cep"
+            type="text"
+            value={address.cep}
+            onChange={handleAddressChange}
+            className="second"
+          />
+          <FormInput
+            labelText="Cidade"
+            name="city"
+            type="text"
+            value={address.city}
+            onChange={handleAddressChange}
+            className="first"
+          />
+          <FormInput
+            labelText="País"
+            name="country"
+            type="text"
+            value={address.country}
+            onChange={handleAddressChange}
+            className="second"
+          />
+        </InlineInputs>
 
-      <ButtonContainer>
-        <Button>Adicionar paciente</Button>
-      </ButtonContainer>
+        <ButtonContainer>
+          <Button maxWidth="12rem">Adicionar paciente</Button>
+        </ButtonContainer>
+      </form>
     </Container>
   );
 }

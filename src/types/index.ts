@@ -1,22 +1,20 @@
-export type PatientProps = {
-  userId: string;
-  id: string;
+export type PatientInfosType = {
+  userId?: string;
+  id?: string;
   name: string;
-  gender: string;
-  cpf: string;
+  occupation: string;
   phoneNumber: string;
+  gender: string;
   address: {
     street: string;
-    number: number;
+    number: string;
     cep: string;
     city: string;
     country: string;
   };
-  email: string;
   birthdayDate: number;
   scholarity: string;
-  occupation: string;
-  schedule: {
+  schedule?: {
     dayOfWeek: number;
     start: number;
     end: number;
