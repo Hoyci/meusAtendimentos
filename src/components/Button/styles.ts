@@ -19,6 +19,11 @@ export const ButtonStyled = styled.button<ButtonProps>`
     background-color: ${({ theme }) => theme.colors.blue[700]};
   }
 
+  &[disabled] {
+    background-color: ${({ theme }) => theme.colors.lynch[300]};
+    cursor: default;
+  }
+
   ${({ outlined }) =>
     outlined &&
     css`

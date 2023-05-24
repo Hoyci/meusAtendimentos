@@ -1,3 +1,11 @@
+export type PatientAddressType = {
+  street: string;
+  number: string;
+  cep: string;
+  city: string;
+  country: string;
+};
+
 export type PatientInfosType = {
   userId?: string;
   id?: string;
@@ -5,13 +13,7 @@ export type PatientInfosType = {
   occupation: string;
   phoneNumber: string;
   gender: string;
-  address: {
-    street: string;
-    number: string;
-    cep: string;
-    city: string;
-    country: string;
-  };
+  address: PatientAddressType;
   birthdayDate: number;
   scholarity: string;
   schedule?: {

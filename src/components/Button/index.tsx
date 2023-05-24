@@ -7,6 +7,7 @@ export default function Button({
   children,
   ...props
 }: ButtonProps) {
+  console.log(props);
   return (
     <ButtonStyled outlined={outlined} maxWidth={maxWidth} {...props}>
       {children}

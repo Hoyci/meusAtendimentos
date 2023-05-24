@@ -5,7 +5,7 @@ interface FormInputType extends InputHTMLAttributes<HTMLInputElement> {
   labelText: string;
   name: string;
   type: string;
-  value: string;
+  value: string | number;
   className?: string;
 }
 

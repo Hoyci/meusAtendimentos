@@ -20,26 +20,3 @@ export const HeaderTitle = styled.h1`
   font-size: 1.8rem;
   color: ${({ theme }) => theme.colors.blue[800]};
 `;
-
-export const InlineInputs = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-
-  .allLine {
-    grid-column: 1 / -1;
-  }
-
-  .first {
-    grid-column: 1;
-  }
-
-  .second {
-    grid-column: 2;
-  }
-`;
-
-export const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: end;
-`;
