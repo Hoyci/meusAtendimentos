@@ -38,7 +38,7 @@ export default function PatientForm({ onSubmit }: NewPatientType) {
   const { currentUser } = useAuth();
 
   const addressObjectIsEmpty = Object.values(address).every(
-    (value) => value !== null && value !== undefined && value !== ''
+    (value) => value === null && value === undefined && value === ''
   );
 
   const isFormValid =

@@ -17,32 +17,24 @@ export type UserInfoType = {
   email: string;
 };
 
-export async function createUser(userInfos: UserInfoType) {
-  try {
-    const docRef = await addDoc(collection(db, 'users'), userInfos);
-    return docRef;
-  } catch (err) {
-    console.log('Erro:', err);
-  }
-}
-
-export async function getUser(uid: string) {
-  try {
-    const usersRef = collection(db, 'users');
-    const user = query(usersRef, where('id', '==', uid));
-    const document = await getDocs(user);
-
-    return document.docs[0].data() as UserInfoType;
-  } catch (err) {
-    console.log('error', err);
-  }
-}
 
 export async function createPatient(patientInfos: PatientInfosType) {
   try {
     const patientsRef = collection(db, 'patients');
     const docRef = await addDoc(patientsRef, patientInfos);
     return docRef;
+  } catch (err) {
+    console.log('error', err);
+  }
+}
+
+export async function getPatientByName(patientName: PatientInfosType['name']) {
+  try {
+    const usersRef = collection(db, 'patients');
+    const user = query(usersRef, where('name', '==', patientName));
+    const document = await getDocs(user);
+
+    return document.empty ? null : document.docs[0].data();
   } catch (err) {
     console.log('error', err);
   }
