@@ -7,37 +7,52 @@ import {
   PatitentSubtitle,
 } from './styles';
 
-import editIcon from '../../assets/images/icons/edit.svg';
-import deleteIcon from '../../assets/images/icons/delete.svg';
 import { useNavigate } from 'react-router-dom';
-import { daysOfTheWeek, getHours } from '../../utils';
-import { PatientProps } from '../../types';
+// import { daysOfTheWeek, getHours } from '../../utils';
+// import { PatientProps } from '../../types';
 import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
 import { useTheme } from 'styled-components';
+import { PatientInfosType } from '../../types';
+import { deletePatientById } from '../../services/database';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-export default function PatientCard({ patient }: { patient: PatientProps }) {
-  const { id, name, schedule } = patient;
-  const patientSchedule = getHours(schedule.start, schedule.end);
-  const navigate = useNavigate();
+export default function PatientCard({
+  patient,
+}: {
+  patient: PatientInfosType;
+}) {
+  console.log(patient);
   const theme = useTheme();
+  const navigate = useNavigate();
+  const { id, name, phoneNumber } = patient;
+  const queryClient = useQueryClient();
+  const { mutateAsync } = useMutation({
+    mutationFn: deletePatientById,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['patients'] });
+    },
+  });
+  // const patientSchedule = getHours(schedule.start, schedule.end);
 
   const handleEditPatient = () => {
     navigate(`/patient/edit/${id}`);
   };
 
-  const handleDeletePatient = () => {
-    alert('modal de confirmação');
+  const handleDeletePatient = async () => {
+    await mutateAsync(id);
+    alert('Usuário deletado');
   };
 
   return (
     <Container>
       <PatientInfos>
         <PatientTitle>{name}</PatientTitle>
-        <PatitentSubtitle>
+        {/* <PatitentSubtitle>
           {`${daysOfTheWeek[schedule.dayOfWeek]} - ${patientSchedule[0]} às ${
             patientSchedule[1]
           } `}
-        </PatitentSubtitle>
+        </PatitentSubtitle> */}
+        <PatitentSubtitle>{phoneNumber}</PatitentSubtitle>
         <PatientCategory>Social</PatientCategory>
       </PatientInfos>
 

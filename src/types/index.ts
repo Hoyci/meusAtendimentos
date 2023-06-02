@@ -8,7 +8,7 @@ export type PatientAddressType = {
 
 export type PatientInfosType = {
   userId?: string;
-  id?: string;
+  id: string;
   name: string;
   occupation: string;
   phoneNumber: string;
