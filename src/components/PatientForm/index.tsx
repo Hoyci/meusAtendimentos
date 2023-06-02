@@ -143,6 +143,7 @@ export default function PatientForm({ onSubmit }: NewPatientType) {
 
     const patientInfos: PatientInfosType = {
       userId: currentUser?.uid,
+      id: '',
       name,
       occupation,
       phoneNumber: removeCharacteres(phoneNumber),
