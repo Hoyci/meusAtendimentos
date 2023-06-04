@@ -22,3 +22,16 @@ export type PatientInfosType = {
     end: number;
   };
 };
+
+export type PatientObject = Partial<PatientInfosType>;
+
+export type updatePatientType = {
+  patientId: string;
+  patientObject: PatientObject;
+};
+
+export type UserInfoType = {
+  id: string;
+  name: string;
+  email: string;
+};

@@ -12,8 +12,7 @@ export default function Home() {
     queryKey: ['patients', userId],
     queryFn: ({ queryKey }) => getPatients(queryKey[1] || ''),
   });
-  console.log('isLoading', isLoading);
-  console.log('data', data);
+
   return (
     <>
       <ContentHeader>

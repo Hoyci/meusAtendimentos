@@ -7,6 +7,7 @@ interface FormInputType extends InputHTMLAttributes<HTMLInputElement> {
   type: string;
   value: string | number;
   className?: string;
+  disabled?: boolean;
 }
 
 export default function FormInput({

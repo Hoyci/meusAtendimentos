@@ -2,12 +2,14 @@ import { useTheme } from 'styled-components';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { LinkStyled } from '../../components/Link';
-import PatientForm from '../../components/PatientForm';
-import { PatientInfosType } from '../../types';
+import PatientForm, { PatientFormRef } from '../../components/PatientForm';
+import { PatientInfosType, PatientObject } from '../../types';
 import { createPatient, getPatientByName } from '../../services/database';
 import { Container, Header, HeaderTitle } from './styles';
+import { useRef } from 'react';
 
 export default function NewPatient() {
+  const newPatientRef = useRef<PatientFormRef>(null);
   const theme = useTheme();
   const queryClient = useQueryClient();
   const { mutate, isLoading } = useMutation({
@@ -29,6 +31,7 @@ export default function NewPatient() {
       alert('Paciente já existe no banco de dados');
     } else {
       mutate(patientInfo);
+      newPatientRef.current?.resetFields();
     }
   };
 
@@ -44,7 +47,7 @@ export default function NewPatient() {
         </LinkStyled>
         <HeaderTitle>Adicionar paciente</HeaderTitle>
       </Header>
-      <PatientForm onSubmit={handleSubmit} />
+      <PatientForm ref={newPatientRef} onSubmit={handleSubmit} />
     </Container>
   );
 }

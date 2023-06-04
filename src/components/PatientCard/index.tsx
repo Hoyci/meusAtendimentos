@@ -21,7 +21,6 @@ export default function PatientCard({
 }: {
   patient: PatientInfosType;
 }) {
-  console.log(patient);
   const theme = useTheme();
   const navigate = useNavigate();
   const { id, name, phoneNumber } = patient;
