@@ -16,6 +16,12 @@ export const Input = styled.input`
   border: 2px solid transparent;
   border-radius: 5px;
   color: ${({ theme }) => theme.colors.lynch[600]};
+
+  &:focus {
+    outline: none;
+    border: 2px solid ${({ theme }) => theme.colors.blue[500]};
+  }
+
   &,
   &:-webkit-autofill,
   &:-webkit-autofill:hover,
@@ -25,10 +31,5 @@ export const Input = styled.input`
     -webkit-box-shadow: 0 0 0px 1000px ${({ theme }) => theme.colors.background}
       inset;
     transition: background-color 5000s ease-in-out 0s;
-  }
-
-  &:focus {
-    outline: none;
-    border: 2px solid ${({ theme }) => theme.colors.blue[500]};
   }
 `;

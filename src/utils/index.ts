@@ -52,7 +52,6 @@ export const getHours = (start: number, end: number) => {
 
 export const removeCharacteres = (value: string) => value.replace(/\D/g, '');
 
-
 export const getCurrentDate = () => {
   const date = new Date();
 
@@ -61,4 +60,38 @@ export const getCurrentDate = () => {
   const day = date.getDate().toString().padStart(2, '0');
 
   return `${year}-${month}-${day}`;
+};
+
+export const getCurrentDateByTimestamp = (timestamp: number) => {
+  const date = new Date(timestamp);
+
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const day = date.getDate().toString().padStart(2, '0');
+
+  return `${year}-${month}-${day}`;
+};
+
+type ObjectValue = {
+  [key: string]: any;
+};
+
+export const getDifferentElements = (
+  originalObject: ObjectValue,
+  updatedObject: ObjectValue
+): ObjectValue => {
+  const differentElements: ObjectValue = {};
+
+  for (const key in originalObject) {
+    if (
+      originalObject.hasOwnProperty(key) &&
+      updatedObject.hasOwnProperty(key)
+    ) {
+      if (originalObject[key] !== updatedObject[key]) {
+        differentElements[key] = updatedObject[key];
+      }
+    }
+  }
+
+  return differentElements;
 };

@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useState } from 'react';
 import { User, UserCredential } from 'firebase/auth';
 import { signIn, signUp, signOut } from '../services/auth';
 import { auth } from '../services';
-import { UserInfoType } from '../services/database';
+import { UserInfoType } from '../types';
 
 interface AuthContextValue {
   userProfileInfos: UserInfoType | null;
