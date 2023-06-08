@@ -5,18 +5,20 @@ import Form from '../../components/Form';
 import FormGroup from '../../components/FormGroup';
 import FormInput from '../../components/FormInput';
 import useErrors from '../../hooks/useErrors';
-import useAuth from '../../hooks/useAuth';
 import { logEvent } from 'firebase/analytics';
 import { analytics } from '../../../firebaseConfig';
 import Button from '../../components/Button';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { signIn } from '../../services/auth';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
   const [password, setPassword] = useState('');
-  const { signIn } = useAuth();
-  const navigate = useNavigate();
   const { errors, getErrorByFieldName, setError, removeError } = useErrors();
+  const navigate = useNavigate();
+  const { mutateAsync, isLoading } = useMutation({
+    mutationFn: signIn,
+  });
 
   const isFormValid =
     email.length !== 0 && password.length !== 0 && errors.length === 0;
@@ -51,8 +53,7 @@ export default function LoginPage() {
     event.preventDefault();
 
     try {
-      setIsLoading(true);
-      const { user } = await signIn(email, password);
+      const { user } = await mutateAsync({ email, password });
       logEvent(analytics, 'login', {
         method: 'email',
         userId: user.uid,
@@ -61,10 +62,7 @@ export default function LoginPage() {
       });
       navigate('/home');
     } catch (err) {
-      alert(err);
       console.log(err);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -92,6 +90,7 @@ export default function LoginPage() {
         <Button
           maxWidth="12rem"
           disabled={!isFormValid || isLoading}
+          isLoading={isLoading}
           type="submit"
         >
           Entrar

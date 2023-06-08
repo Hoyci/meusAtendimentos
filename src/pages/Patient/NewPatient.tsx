@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { LinkStyled } from '../../components/Link';
 import PatientForm, { PatientFormRef } from '../../components/PatientForm';
-import { PatientInfosType, PatientObject } from '../../types';
+import { PatientInfosType } from '../../types';
 import { createPatient, getPatientByName } from '../../services/database';
 import { Container, Header, HeaderTitle } from './styles';
 import { useRef } from 'react';
@@ -11,19 +11,11 @@ import { useRef } from 'react';
 export default function NewPatient() {
   const newPatientRef = useRef<PatientFormRef>(null);
   const theme = useTheme();
-  const queryClient = useQueryClient();
   const { mutate, isLoading } = useMutation({
     mutationFn: createPatient,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['patients'] });
-    },
   });
 
-  // TODO pass the isLoading for the button component to show a spinner while saving or editing patient
-  console.log('isLoading', isLoading);
-
   const handleSubmit = async (patientInfo: PatientInfosType) => {
-    // TODO Check if different users can create patient with the same name
     const patientExists = await getPatientByName(patientInfo.name);
 
     if (patientExists) {
@@ -47,7 +39,11 @@ export default function NewPatient() {
         </LinkStyled>
         <HeaderTitle>Adicionar paciente</HeaderTitle>
       </Header>
-      <PatientForm ref={newPatientRef} onSubmit={handleSubmit} />
+      <PatientForm
+        ref={newPatientRef}
+        onSubmit={handleSubmit}
+        isLoading={isLoading}
+      />
     </Container>
   );
 }

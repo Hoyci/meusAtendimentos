@@ -9,6 +9,7 @@ import FormInput from '../FormInput';
 import FormSelect from '../FormSelect';
 import {
   educationLevels,
+  formatPhone,
   gendersList,
   getCurrentDate,
   getCurrentDateByTimestamp,
@@ -20,9 +21,11 @@ import { PatientInfosType } from '../../types';
 import { Form, ButtonContainer, InlineInputs } from './styles';
 import FormGroup from '../FormGroup';
 import useErrors from '../../hooks/useErrors';
+import { useNavigate } from 'react-router-dom';
 
 interface PatientFormProps {
   onSubmit: (patientInfo: PatientInfosType) => Promise<void>;
+  isLoading: boolean;
   isEditForm?: boolean;
 }
 
@@ -32,7 +35,7 @@ export interface PatientFormRef {
 }
 
 const PatientForm = forwardRef<PatientFormRef, PatientFormProps>(
-  ({ onSubmit, isEditForm = false }, ref) => {
+  ({ onSubmit, isLoading, isEditForm = false }, ref) => {
     const [name, setName] = useState('');
     const [occupation, setOccupation] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -49,6 +52,7 @@ const PatientForm = forwardRef<PatientFormRef, PatientFormProps>(
     });
     const { errors, getErrorByFieldName, setError, removeError } = useErrors();
     const { currentUser } = useAuth();
+    const navigate = useNavigate();
 
     const addressObjectIsEmpty = Object.values(address).every(
       (value) => value === null && value === undefined && value === ''
@@ -141,7 +145,7 @@ const PatientForm = forwardRef<PatientFormRef, PatientFormProps>(
     };
 
     const handlePhoneNumberChange = (event: ChangeEvent<HTMLInputElement>) => {
-      setPhoneNumber(event.target.value);
+      setPhoneNumber(formatPhone(event.target.value));
 
       if (!event.target.value) {
         setError({
@@ -207,6 +211,7 @@ const PatientForm = forwardRef<PatientFormRef, PatientFormProps>(
       };
 
       await onSubmit(patientInfos);
+      navigate('/home');
     };
 
     return (
@@ -337,7 +342,11 @@ const PatientForm = forwardRef<PatientFormRef, PatientFormProps>(
         </InlineInputs>
 
         <ButtonContainer>
-          <Button disabled={!isFormValid} maxWidth="12rem">
+          <Button
+            disabled={!isFormValid}
+            maxWidth="15rem"
+            isLoading={isLoading}
+          >
             {isEditForm ? 'Editar paciente' : 'Adicionar paciente'}
           </Button>
         </ButtonContainer>

@@ -4,6 +4,7 @@ import { ButtonProps } from './types';
 export const ButtonStyled = styled.button<ButtonProps>`
   background-color: ${({ theme }) => theme.colors.blue[800]};
   color: ${({ theme }) => theme.colors.white};
+  font-size: 1.5rem;
   border: none;
   padding: 1rem;
   border-radius: 5px;
@@ -32,6 +33,31 @@ export const ButtonStyled = styled.button<ButtonProps>`
 
       &:hover {
         background-color: ${({ theme }) => theme.colors.blue[400]};
+      }
+    `}
+
+  ${({ isLoading }) =>
+    isLoading &&
+    css`
+      .spinner {
+        animation: spin 1s linear infinite;
+      }
+
+      @-moz-keyframes spin {
+        100% {
+          -moz-transform: rotate(360deg);
+        }
+      }
+      @-webkit-keyframes spin {
+        100% {
+          -webkit-transform: rotate(360deg);
+        }
+      }
+      @keyframes spin {
+        100% {
+          -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+        }
       }
     `}
 `;

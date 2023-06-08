@@ -14,17 +14,13 @@ export default function EditPatient() {
   const editPatientRef = useRef<PatientFormRef>(null);
   const { id: patientId } = useParams();
 
-  const { data } = useQuery({
+  const { data, isFetching } = useQuery({
     queryKey: ['patients', patientId],
     queryFn: ({ queryKey }) => getPatientById(queryKey[1] || ''),
   });
 
-  const queryClient = useQueryClient();
-  const { mutateAsync } = useMutation({
+  const { mutateAsync, isLoading } = useMutation({
     mutationFn: updatePatientById,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['patients'] });
-    },
   });
 
   useEffect(() => {
@@ -52,7 +48,12 @@ export default function EditPatient() {
         </LinkStyled>
         <HeaderTitle>Editar paciente</HeaderTitle>
       </Header>
-      <PatientForm ref={editPatientRef} onSubmit={handleSomething} isEditForm />
+      <PatientForm
+        ref={editPatientRef}
+        onSubmit={handleSomething}
+        isLoading={isLoading || isFetching}
+        isEditForm
+      />
     </Container>
   );
 }
