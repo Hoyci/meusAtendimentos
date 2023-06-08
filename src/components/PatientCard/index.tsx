@@ -8,13 +8,12 @@ import {
 } from './styles';
 
 import { useNavigate } from 'react-router-dom';
-// import { daysOfTheWeek, getHours } from '../../utils';
-// import { PatientProps } from '../../types';
 import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
 import { useTheme } from 'styled-components';
 import { PatientInfosType } from '../../types';
 import { deletePatientById } from '../../services/database';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { formatPhone } from '../../utils';
 
 export default function PatientCard({
   patient,
@@ -23,7 +22,7 @@ export default function PatientCard({
 }) {
   const theme = useTheme();
   const navigate = useNavigate();
-  const { id, name, phoneNumber } = patient;
+  const { id, name, phoneNumber, gender } = patient;
   const queryClient = useQueryClient();
   const { mutateAsync } = useMutation({
     mutationFn: deletePatientById,
@@ -31,13 +30,13 @@ export default function PatientCard({
       queryClient.invalidateQueries({ queryKey: ['patients'] });
     },
   });
-  // const patientSchedule = getHours(schedule.start, schedule.end);
 
   const handleEditPatient = () => {
     navigate(`/patient/edit/${id}`);
   };
 
   const handleDeletePatient = async () => {
+    // TODO: Show a modal to user decide if want to delete the user
     await mutateAsync(id);
     alert('Usuário deletado');
   };
@@ -46,13 +45,10 @@ export default function PatientCard({
     <Container>
       <PatientInfos>
         <PatientTitle>{name}</PatientTitle>
-        {/* <PatitentSubtitle>
-          {`${daysOfTheWeek[schedule.dayOfWeek]} - ${patientSchedule[0]} às ${
-            patientSchedule[1]
-          } `}
-        </PatitentSubtitle> */}
-        <PatitentSubtitle>{phoneNumber}</PatitentSubtitle>
-        <PatientCategory>Social</PatientCategory>
+        <PatitentSubtitle>{formatPhone(phoneNumber)}</PatitentSubtitle>
+        <PatientCategory>
+          {`${gender.charAt(0).toUpperCase()}${gender.slice(1)}`}
+        </PatientCategory>
       </PatientInfos>
 
       <PatientActions>

@@ -6,7 +6,13 @@ import GlobalStyles from './assets/styles/global';
 import defaultTheme from './assets/styles/themes/default';
 import Routes from './Routes';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 function App() {
   return (

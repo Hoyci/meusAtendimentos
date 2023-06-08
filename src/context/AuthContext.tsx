@@ -11,12 +11,6 @@ interface AuthContextValue {
   >;
   currentUser: User | null;
   setCurrentUser: React.Dispatch<React.SetStateAction<User | null>>;
-  signUp: (
-    email: string,
-    password: string
-  ) => Promise<UserCredential>;
-  signIn: (email: string, password: string) => Promise<UserCredential>;
-  signOut: () => Promise<void>;
 }
 
 interface IAuthProvider {
@@ -28,15 +22,6 @@ export const AuthContext = createContext<AuthContextValue>({
   currentUser: null,
   setUserProfileInfos: () => {},
   setCurrentUser: () => {},
-  signUp: async () => {
-    throw new Error('AuthContext not initialized');
-  },
-  signIn: async () => {
-    throw new Error('AuthContext not initialized');
-  },
-  signOut: async () => {
-    throw new Error('AuthContext not initialized');
-  },
 });
 
 export const AuthProvider = ({ children }: IAuthProvider) => {

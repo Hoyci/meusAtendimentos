@@ -8,7 +8,7 @@ import useAuth from '../../hooks/useAuth';
 export default function Home() {
   const { currentUser } = useAuth();
   const userId = currentUser?.uid;
-  const { isLoading, data } = useQuery({
+  const { isFetching, data } = useQuery({
     queryKey: ['patients', userId],
     queryFn: ({ queryKey }) => getPatients(queryKey[1] || ''),
   });
@@ -17,17 +17,17 @@ export default function Home() {
     <>
       <ContentHeader>
         <LabelContainer>
-          <ContentLabel>{data?.length} pacientes</ContentLabel>
-          <p>Nome ↑</p>
+          <ContentLabel>{data?.length || 0} pacientes</ContentLabel>
         </LabelContainer>
         <ButtonStyledLink to="/patient/create">
           Adicionar paciente
         </ButtonStyledLink>
       </ContentHeader>
 
-      {isLoading && <h1>Carregando...</h1>}
+      {/* // TODO: Use a container to centralize a spinner in middle of the screen */}
+      {isFetching && <h1>Carregando...</h1>}
 
-      {!isLoading &&
+      {!isFetching &&
         data?.map((patient) => (
           <PatientCard key={patient.id} patient={patient} />
         ))}

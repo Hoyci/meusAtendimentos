@@ -6,18 +6,24 @@ import { analytics } from '../../../firebaseConfig';
 import { AiOutlineUser } from 'react-icons/ai';
 import { useTheme } from 'styled-components';
 import Button from '../Button';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { signOut } from '../../services/auth';
 
 export default function Header() {
-  const { signOut, currentUser } = useAuth();
+  const { currentUser } = useAuth();
   const [isPerfilModalOpen, setIsPerfilModalOpen] = useState(false);
   const perfilModalRef = useRef<HTMLDivElement>(null);
   const theme = useTheme();
+
+  const { mutateAsync } = useMutation({
+    mutationFn: signOut,
+  });
 
   const handleTogglePerfilModal = () =>
     setIsPerfilModalOpen((prevState) => !prevState);
 
   const handleSignOut = async () => {
-    await signOut();
+    await mutateAsync();
     logEvent(analytics, 'user_logout', {
       userId: currentUser?.uid,
       userEmail: currentUser?.email,

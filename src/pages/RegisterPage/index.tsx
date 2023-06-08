@@ -1,9 +1,11 @@
+import { useMutation } from '@tanstack/react-query';
 import { logEvent } from 'firebase/analytics';
 import { updateProfile } from 'firebase/auth';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { analytics } from '../../../firebaseConfig';
 import Box from '../../components/Box';
+import Button from '../../components/Button';
 import Form from '../../components/Form';
 import FormGroup from '../../components/FormGroup';
 import FormInput from '../../components/FormInput';
@@ -15,9 +17,12 @@ export default function RegisterPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { errors, getErrorByFieldName, setError, removeError } = useErrors();
+
+  const { mutateAsync, isLoading } = useMutation({
+    mutationFn: signUp,
+  });
 
   const isFormValid =
     password.length !== 0 &&
@@ -91,8 +96,7 @@ export default function RegisterPage() {
     event.preventDefault();
 
     try {
-      setIsLoading(true);
-      const { user } = await signUp(email, password);
+      const { user } = await mutateAsync({ email, password });
       await updateProfile(user, {
         displayName: name,
       });
@@ -104,9 +108,8 @@ export default function RegisterPage() {
       });
       navigate('/home');
     } catch (err) {
+      // TODO: Use toast when email is already in use
       console.log(err);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -154,9 +157,14 @@ export default function RegisterPage() {
             onChange={handleConfirmPasswordChange}
           />
         </FormGroup>
-        <button type="submit" disabled={!isFormValid || isLoading}>
+        <Button
+          maxWidth="12rem"
+          disabled={!isFormValid || isLoading}
+          isLoading={isLoading}
+          type="submit"
+        >
           Cadastrar
-        </button>
+        </Button>
       </Form>
     </Box>
   );

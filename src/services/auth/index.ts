@@ -6,12 +6,17 @@ import {
 import 'firebase/database';
 import { auth } from '..';
 
-export async function signUp(email: string, password: string) {
+interface SignProps {
+  email: string;
+  password: string;
+}
+
+export async function signUp({ email, password }: SignProps) {
   const user = await createUserWithEmailAndPassword(auth, email, password);
   return user;
 }
 
-export async function signIn(email: string, password: string) {
+export async function signIn({ email, password }: SignProps) {
   return signInWithEmailAndPassword(auth, email, password);
 }
 
