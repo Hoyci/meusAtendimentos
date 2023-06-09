@@ -1,6 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { User, UserCredential } from 'firebase/auth';
-import { signIn, signUp, signOut } from '../services/auth';
+import { User } from 'firebase/auth';
 import { auth } from '../services';
 import { UserInfoType } from '../types';
 
@@ -41,9 +40,6 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
     setUserProfileInfos,
     currentUser,
     setCurrentUser,
-    signIn,
-    signUp,
-    signOut,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

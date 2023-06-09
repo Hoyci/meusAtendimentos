@@ -22,6 +22,7 @@ import { Form, ButtonContainer, InlineInputs } from './styles';
 import FormGroup from '../FormGroup';
 import useErrors from '../../hooks/useErrors';
 import { useNavigate } from 'react-router-dom';
+import toast from '../../utils/toast';
 
 interface PatientFormProps {
   onSubmit: (patientInfo: PatientInfosType) => Promise<void>;
@@ -212,6 +213,10 @@ const PatientForm = forwardRef<PatientFormRef, PatientFormProps>(
 
       await onSubmit(patientInfos);
       navigate('/home');
+      toast({
+        variant: 'success',
+        text: isEditForm ? 'Editado com sucesso' : 'Criado com sucesso',
+      });
     };
 
     return (

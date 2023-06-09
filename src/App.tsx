@@ -5,6 +5,7 @@ import { AuthProvider } from './context/AuthContext';
 import GlobalStyles from './assets/styles/global';
 import defaultTheme from './assets/styles/themes/default';
 import Routes from './Routes';
+import ToastContainer from './components/Toast/ToastContainer';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -19,6 +20,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={defaultTheme}>
         <GlobalStyles />
+        <ToastContainer />
         <AuthProvider>
           <RouterProvider router={Routes} />
         </AuthProvider>
