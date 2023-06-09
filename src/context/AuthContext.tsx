@@ -29,18 +29,12 @@ export const AuthProvider = ({ children }: IAuthProvider) => {
   const [userProfileInfos, setUserProfileInfos] = useState<UserInfoType | null>(
     null
   );
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
-      setIsLoading(false);
     });
   }, []);
-
-  if (isLoading) {
-    return <h1>Carregando...</h1>;
-  }
 
   const value = {
     userProfileInfos,
