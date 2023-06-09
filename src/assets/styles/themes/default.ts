@@ -34,6 +34,9 @@ declare module 'styled-components' {
       red: {
         main: string;
       };
+      green: {
+        main: string;
+      };
       text: {
         dark: string;
         light: string;
@@ -75,6 +78,9 @@ const defaultTheme: DefaultTheme = {
     },
     red: {
       main: '#FC5050',
+    },
+    green: {
+      main: '#51CA73',
     },
     text: {
       dark: '#222325',

@@ -7,6 +7,7 @@ import { PatientInfosType } from '../../types';
 import { createPatient, getPatientByName } from '../../services/database';
 import { Container, Header, HeaderTitle } from './styles';
 import { useRef } from 'react';
+import toast from '../../utils/toast';
 
 export default function NewPatient() {
   const newPatientRef = useRef<PatientFormRef>(null);
@@ -19,8 +20,7 @@ export default function NewPatient() {
     const patientExists = await getPatientByName(patientInfo.name);
 
     if (patientExists) {
-      // TODO change this to use toast
-      alert('Paciente já existe no banco de dados');
+      toast({ variant: 'danger', text: 'Paciente já cadastrado' });
     } else {
       mutate(patientInfo);
       newPatientRef.current?.resetFields();
