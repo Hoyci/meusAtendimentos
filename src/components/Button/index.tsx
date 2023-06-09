@@ -1,6 +1,6 @@
 import { ButtonStyled } from './styles';
 import { ButtonProps } from './types';
-import { ImSpinner2 } from 'react-icons/im';
+import Spinner from '../Spinner';
 
 export default function Button({
   outlined = false,
@@ -16,7 +16,7 @@ export default function Button({
       isLoading={isLoading}
       {...props}
     >
-      {isLoading ? <ImSpinner2 className="spinner" /> : children}
+      {isLoading ? <Spinner variant="center" size={15} /> : children}
     </ButtonStyled>
   );
 }

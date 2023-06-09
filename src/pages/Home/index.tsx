@@ -4,6 +4,7 @@ import PatientCard from '../../components/PatientCard';
 import { useQuery } from '@tanstack/react-query';
 import { getPatients } from '../../services/database';
 import useAuth from '../../hooks/useAuth';
+import Spinner from '../../components/Spinner';
 
 export default function Home() {
   const { currentUser } = useAuth();
@@ -24,8 +25,7 @@ export default function Home() {
         </ButtonStyledLink>
       </ContentHeader>
 
-      {/* // TODO: Use a container to centralize a spinner in middle of the screen */}
-      {isFetching && <h1>Carregando...</h1>}
+      {isFetching && <Spinner variant="center" size={25} />}
 
       {!isFetching &&
         data?.map((patient) => (
