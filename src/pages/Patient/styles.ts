@@ -20,3 +20,34 @@ export const HeaderTitle = styled.h1`
   font-size: 1.8rem;
   color: ${({ theme }) => theme.colors.blue[800]};
 `;
+
+export const InlineElements = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+
+  .allLine {
+    grid-column: 1 / -1;
+  }
+
+  .first {
+    grid-column: 1;
+  }
+
+  .second {
+    grid-column: 2;
+  }
+`;
+
+export const ContentContainer = styled.main``;
+
+export const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+
+  span {
+    color: ${({ theme }) => theme.colors.lynch[600]};
+    margin-bottom: 0.4rem;
+  }
+`;

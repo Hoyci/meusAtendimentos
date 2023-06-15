@@ -1,5 +1,4 @@
-import { createBrowserRouter, Outlet } from 'react-router-dom';
-import Header from './components/Header';
+import { createBrowserRouter } from 'react-router-dom';
 import PrivateRoute from './components/PrivateRoute';
 import {
   LoginPage,
@@ -7,6 +6,7 @@ import {
   Home,
   NewPatient,
   EditPatient,
+  PatientInfos
 } from './pages';
 
 export default createBrowserRouter([
@@ -39,6 +39,10 @@ export default createBrowserRouter([
       {
         path: 'edit/:id',
         element: <EditPatient />
+      },
+      {
+        path: 'info/:id',
+        element: <PatientInfos />
       }
     ]
   },

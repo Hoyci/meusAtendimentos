@@ -76,7 +76,7 @@ const PatientForm = forwardRef<PatientFormRef, PatientFormProps>(
             getCurrentDate()
         );
         setGender(patientsData.gender ?? 'man');
-        // setMaritalStatus('single');
+        setMaritalStatus(patientsData.maritalStatus ?? 'single');
         setScholarity(patientsData.scholarity ?? 'unlettered');
         setAddress(
           patientsData.address ?? {
@@ -94,7 +94,7 @@ const PatientForm = forwardRef<PatientFormRef, PatientFormProps>(
         setPhoneNumber('');
         setBirthday(getCurrentDate());
         setGender('man');
-        // setMaritalStatus('single');
+        setMaritalStatus('single');
         setScholarity('unlettered');
         setAddress({
           street: '',
@@ -204,6 +204,7 @@ const PatientForm = forwardRef<PatientFormRef, PatientFormProps>(
         id: '',
         name,
         occupation,
+        maritalStatus,
         phoneNumber: removeCharacteres(phoneNumber),
         gender,
         address,

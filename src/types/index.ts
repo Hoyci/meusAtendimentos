@@ -13,6 +13,7 @@ export type PatientInfosType = {
   occupation: string;
   phoneNumber: string;
   gender: string;
+  maritalStatus: string;
   address: PatientAddressType;
   birthdayDate: number;
   scholarity: string;

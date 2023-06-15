@@ -1,27 +1,26 @@
+import { Link } from 'react-router-dom';
+import { PatientInfosType } from '../../types';
+import { deletePatientById } from '../../services/database';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { formatPhone } from '../../utils';
+
 import {
   Container,
+  DeleteIcon,
+  EditIcon,
   PatientActions,
   PatientCategory,
   PatientInfos,
   PatientTitle,
   PatitentSubtitle,
 } from './styles';
-
-import { useNavigate } from 'react-router-dom';
-import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
-import { useTheme } from 'styled-components';
-import { PatientInfosType } from '../../types';
-import { deletePatientById } from '../../services/database';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { formatPhone } from '../../utils';
+import React from 'react';
 
 export default function PatientCard({
   patient,
 }: {
   patient: PatientInfosType;
 }) {
-  const theme = useTheme();
-  const navigate = useNavigate();
   const { id, name, phoneNumber, gender } = patient;
   const queryClient = useQueryClient();
   const { mutateAsync } = useMutation({
@@ -31,18 +30,15 @@ export default function PatientCard({
     },
   });
 
-  const handleEditPatient = () => {
-    navigate(`/patient/edit/${id}`);
-  };
-
-  const handleDeletePatient = async () => {
+  const handleDeletePatient = async (event: React.MouseEvent<SVGElement>) => {
+    event.preventDefault();
     // TODO: Show a modal to user decide if want to delete the user
     await mutateAsync(id);
     alert('Usuário deletado');
   };
 
   return (
-    <Container>
+    <Container to={`/patient/info/${id}`}>
       <PatientInfos>
         <PatientTitle>{name}</PatientTitle>
         <PatitentSubtitle>{formatPhone(phoneNumber)}</PatitentSubtitle>
@@ -52,18 +48,10 @@ export default function PatientCard({
       </PatientInfos>
 
       <PatientActions>
-        <AiOutlineEdit
-          style={{ cursor: 'pointer' }}
-          fontSize={'2rem'}
-          color={theme.colors.blue[900]}
-          onClick={handleEditPatient}
-        />
-        <AiOutlineDelete
-          style={{ cursor: 'pointer' }}
-          fontSize={'2rem'}
-          color={theme.colors.red.main}
-          onClick={handleDeletePatient}
-        />
+        <Link to={`/patient/edit/${id}`}>
+          <EditIcon />
+        </Link>
+        <DeleteIcon onClick={handleDeletePatient} />
       </PatientActions>
     </Container>
   );

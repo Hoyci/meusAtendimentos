@@ -6,7 +6,7 @@ import { analytics } from '../../../firebaseConfig';
 import { AiOutlineUser } from 'react-icons/ai';
 import { useTheme } from 'styled-components';
 import Button from '../Button';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { signOut } from '../../services/auth';
 
 export default function Header() {

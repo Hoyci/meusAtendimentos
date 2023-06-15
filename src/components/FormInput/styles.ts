@@ -15,7 +15,7 @@ export const Input = styled.input`
   padding: 1rem;
   border: 2px solid transparent;
   border-radius: 5px;
-  color: ${({ theme }) => theme.colors.lynch[600]};
+  color: ${({ theme }) => theme.colors.blue[100]};
 
   &:focus {
     outline: none;

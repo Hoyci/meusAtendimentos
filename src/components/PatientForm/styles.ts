@@ -10,7 +10,7 @@ export const ButtonContainer = styled.div`
 export const InlineInputs = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+  gap: 1rem;
 
   .allLine {
     grid-column: 1 / -1;

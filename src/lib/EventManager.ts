@@ -7,7 +7,6 @@ export default class EventManager {
   }
 
   on(event: string, listener: (T: any) => void) {
-    console.log({ event, listener });
     if (!this.listeners.has(event)) {
       this.listeners.set(event, []);
     }

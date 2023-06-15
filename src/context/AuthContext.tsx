@@ -1,13 +1,8 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { User } from 'firebase/auth';
 import { auth } from '../services';
-import { UserInfoType } from '../types';
-
 interface AuthContextValue {
-  userProfileInfos: UserInfoType | null;
-  setUserProfileInfos: React.Dispatch<
-    React.SetStateAction<UserInfoType | null>
-  >;
+  isLoading: boolean;
   currentUser: User | null;
   setCurrentUser: React.Dispatch<React.SetStateAction<User | null>>;
 }
@@ -17,29 +12,30 @@ interface IAuthProvider {
 }
 
 export const AuthContext = createContext<AuthContextValue>({
-  userProfileInfos: null,
+  isLoading: true,
   currentUser: null,
-  setUserProfileInfos: () => {},
   setCurrentUser: () => {},
 });
 
 export const AuthProvider = ({ children }: IAuthProvider) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
-  const [userProfileInfos, setUserProfileInfos] = useState<UserInfoType | null>(
-    null
-  );
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
+      setIsLoading(false);
     });
   }, []);
 
+  if (isLoading) {
+    return <></>;
+  }
+
   const value = {
-    userProfileInfos,
-    setUserProfileInfos,
     currentUser,
     setCurrentUser,
+    isLoading,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
